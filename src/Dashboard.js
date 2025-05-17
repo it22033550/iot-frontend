@@ -16,7 +16,7 @@ function Dashboard() {
 
   const fetchDevices = () => {
     axios
-      .get('http://localhost:3000/devices')
+      .get('process.env.REACT_APP_BACKEND_URL')
       .then((res) => setDevices(res.data))
       .catch((err) => console.error('Failed to fetch devices:', err));
   };
@@ -24,7 +24,7 @@ function Dashboard() {
   const registerDevice = () => {
     if (!newDevice.trim()) return;
     axios
-      .post('http://localhost:3000/register', { deviceId: newDevice })
+      .post('process.env.REACT_APP_BACKEND_URL', { deviceId: newDevice })
       .then(() => {
         fetchDevices();
         setStatusMessage('✅ Device registered!');
@@ -46,7 +46,7 @@ function Dashboard() {
     }
 
     axios
-      .post('http://localhost:3000/send-command', {
+      .post('process.env.REACT_APP_BACKEND_URL/send-command', {
         deviceId: selectedDevice,
         command: commandText,
       })
